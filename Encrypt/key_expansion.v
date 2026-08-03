@@ -24,7 +24,7 @@ module key_expansion #(parameter KEY_BITS = 128, parameter NUM_ROUNDS = (KEY_BIT
     endgenerate
 endmodule
 
-module next_key_4(
+module next_key_128(
     input  [3:0]r,
     input  [127:0]in,
     output [127:0]out
@@ -63,6 +63,5 @@ module next_key_4(
     //Wi = Wi-4 + Wi-1
     assign out[95:64] = in[95:64] ^ out[127:96];
     assign out[63:32] = in[63:32] ^ out[95:64];
-    assign out[31:00] = in[31:00] ^ out[63:32];
-    
+    assign out[31:00] = in[31:00] ^ out[63:32];    
 endmodule
