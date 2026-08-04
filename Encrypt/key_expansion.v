@@ -12,12 +12,12 @@ module key_expansion #(parameter KEY_BITS = 128, parameter NUM_ROUNDS = (KEY_BIT
     case (NK)
         4 : begin
             for (i=1;i<NUM_ROUNDS+1;i=i+1) begin
-                next_key_4 rnd (.r(i),.in(w[i*128-1 -:128]), .out(w[(i+1)*128-1 -:128]));
+                next_key_128 rnd (.r(i),.in(w[i*128-1 -:128]), .out(w[(i+1)*128-1 -:128]));
             end
         end 
         default: begin
             for (i=1;i<NUM_ROUNDS+1;i=i+1) begin
-                next_key_4 rnd (.r(i),.in(w[i*128-1 -:128]), .out(w[(i+1)*128-1 -:128]));
+                next_key_128 rnd (.r(i),.in(w[i*128-1 -:128]), .out(w[(i+1)*128-1 -:128]));
             end
         end 
     endcase
