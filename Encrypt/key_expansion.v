@@ -65,3 +65,60 @@ module next_key_128(
     assign out[63:32] = in[63:32] ^ out[95:64];
     assign out[31:00] = in[31:00] ^ out[63:32];    
 endmodule
+
+//// Pipelined module, untested
+// module key_expansion_pipelined #(parameter KEY_BITS = 128, parameter NUM_ROUNDS = (KEY_BITS/32+6))(
+//     input  clk,
+//     input  rst_n,
+//     input  [KEY_BITS-1:0]key,
+//     output [4*(NUM_ROUNDS+1)*32-1:0] w
+// );
+//     localparam NK = KEY_BITS/32;
+//     reg [KEY_BITS-1:0] w_pipe [0:NUM_ROUNDS-1];
+//     always @(posedge clk or negedge rst_n) begin
+//         if (!rst_n) begin
+//             w_pipe[0] <= {KEY_BITS{1'b0}};
+//         end else begin
+//             w_pipe[0] <= key;
+//         end
+//     end
+//     //Assign Key0
+//     assign w[KEY_BITS-1:0] = w_pipe[0];
+    
+//     genvar i;
+//     generate
+//     //generate round keys
+//     case (NK)
+//         4 : begin
+//             for (i=1;i<NUM_ROUNDS+1;i=i+1) begin
+//                 wire [KEY_BITS-1:0] next_key;
+//                 next_key_128 rnd (.r(4'(i)),.in(w_pipe[i-1]), .out(next_key));
+
+//                 always @(posedge clk or negedge rst_n) begin
+//                     if (!rst_n) begin
+//                         w_pipe[i] <= {KEY_BITS{1'b0}};
+//                     end else begin
+//                         w_pipe[i] <= next_key;
+//                     end
+//                 end
+
+//                 assign w[i*128 +:128] = w_pipe[i];
+//             end
+//         end 
+//         default: begin
+//             wire [KEY_BITS-1:0] next_key;
+//                 next_key_128 rnd (.r(4'(i)),.in(w_pipe[i-1]), .out(next_key));
+
+//                 always @(posedge clk or negedge rst_n) begin
+//                     if (!rst_n) begin
+//                         w_pipe[i] <= {KEY_BITS{1'b0}};
+//                     end else begin
+//                         w_pipe[i] <= next_key;
+//                     end
+//                 end
+
+//                 assign w[i*128 +:128] = w_pipe[i];
+//         end 
+//     endcase
+//     endgenerate
+// endmodule
