@@ -98,6 +98,25 @@ module AES_CBC_Encrypt_tb;
             $display("[FAIL] CBC Block 4");
         end
 
+        //--------------------------------------------------
+        // Additional Test (IV = 0)
+        //--------------------------------------------------
+        plaintext = 128'h3243F6A8885A308D313198A2E0370734;
+        key       = 128'h2B7E151628AED2A6ABF7158809CF4F3C;
+        iv        = 128'h00000000000000000000000000000000;
+        #10;
+
+        $display("Additional Test Ciphertext = %h", ciphertext);
+        $display("Expected                   = 3925841d02dc09fbdc118597196a0b32");
+
+        if (ciphertext === 128'h3925841d02dc09fbdc118597196a0b32) begin
+            pass_count = pass_count + 1;
+            $display("[PASS] Additional Test (IV = 0)");
+        end else begin
+            fail_count = fail_count + 1;
+            $display("[FAIL] Additional Test (IV = 0)");
+        end
+
         $display("");
         $display("======================================");
         $display("Simulation Summary:");

@@ -1,0 +1,138 @@
+﻿Reading pref.tcl
+
+# 2020.1
+
+# vsim -c AES_CBC_Encrypt_tb -do "run -all; quit" 
+# Start time: 09:06:53 on Aug 05,2026
+# Loading work.AES_CBC_Encrypt_tb
+# Loading work.AES_CBC_Encrypt
+# Loading work.Encrypt_Top
+# Loading work.add_vector
+# Loading work.key_expansion
+# Loading work.add_round_key
+# Loading work.encrypt_final_round
+# Loading work.subbytes
+# Loading work.ShiftRows
+# Loading work.next_key_128
+# Loading work.sbox
+# Loading work.key_scheduler
+# Loading work.encrypt_round
+# Loading work.col_mix
+# Loading work.col_mix_single
+# run -all
+# ======================================
+#   AES CBC ENCRYPT NIST SP 800-38A TEST
+# ======================================
+# Block 1 Ciphertext = 7649abac8119b246cee98e9b12e9197d
+# Expected           = 7649ABAC8119B246CEE98E9B12E9197D
+# [PASS] CBC Block 1
+# Block 2 Ciphertext = 5086cb9b507219ee95db113a917678b2
+# Expected           = 5086CB9B507219EE95DB113A917678B2
+# [PASS] CBC Block 2
+# Block 3 Ciphertext = 73bed6b8e3c1743b7116e69e22229516
+# Expected           = 73BED6B8E3C1743B7116E69E22229516
+# [PASS] CBC Block 3
+# Block 4 Ciphertext = 3ff1caa1681fac09120eca307586e1a7
+# Expected           = 3FF1CAA1681FAC09120ECA307586E1A7
+# [PASS] CBC Block 4
+# Additional Test Ciphertext = 3925841d02dc09fbdc118597196a0b32
+# Expected                   = 3925841d02dc09fbdc118597196a0b32
+# [PASS] Additional Test (IV = 0)
+# 
+# ======================================
+# Simulation Summary:
+# PASS = 5, FAIL = 0
+# ======================================
+# ** Note: $stop    : Testbenches/AES_CBC_Encrypt_tb.v(126)
+#    Time: 50 ns  Iteration: 0  Instance: /AES_CBC_Encrypt_tb
+# Break in Module AES_CBC_Encrypt_tb at Testbenches/AES_CBC_Encrypt_tb.v line 126
+# Stopped at Testbenches/AES_CBC_Encrypt_tb.v line 126
+#  quit
+# End time: 09:06:55 on Aug 05,2026, Elapsed time: 0:00:02
+# Errors: 0, Warnings: 0
+Reading pref.tcl
+
+# 2020.1
+
+# vsim -c key_scheduler_tb -do "run -all; quit" 
+# Start time: 09:06:59 on Aug 05,2026
+# Loading work.key_scheduler_tb
+# Loading work.key_expansion
+# Loading work.key_scheduler
+# Loading work.next_key_128
+# Loading work.sbox
+# run -all
+# ======================================
+#        AES KEY SCHEDULER TEST
+# ======================================
+# 
+# --- Testing Encryption Key Schedule ---
+# Encrypt Round 0 Key = 2b7e151628aed2a6abf7158809cf4f3c
+# Encrypt Round 1 Key = a0fafe1788542cb123a339392a6c7605
+# Encrypt Round 2 Key = f2c295f27a96b9435935807a7359f67f
+# Encrypt Round 3 Key = 3d80477d4716fe3e1e237e446d7a883b
+# Encrypt Round 4 Key = ef44a541a8525b7fb671253bdb0bad00
+# Encrypt Round 5 Key = d4d1c6f87c839d87caf2b8bc11f915bc
+# Encrypt Round 6 Key = 6d88a37a110b3efddbf98641ca0093fd
+# Encrypt Round 7 Key = 4e54f70e5f5fc9f384a64fb24ea6dc4f
+# Encrypt Round 8 Key = ead27321b58dbad2312bf5607f8d292f
+# Encrypt Round 9 Key = ac7766f319fadc2128d12941575c006e
+# Encrypt Round 10 Key = d014f9a8c9ee2589e13f0cc8b6630ca6
+# 
+# --- Testing Decryption Key Schedule ---
+# Decrypt Round 0 Key = d014f9a8c9ee2589e13f0cc8b6630ca6 (Expected w[10])
+# Decrypt Round 1 Key = ac7766f319fadc2128d12941575c006e (Expected w[9])
+# Decrypt Round 2 Key = ead27321b58dbad2312bf5607f8d292f (Expected w[8])
+# Decrypt Round 3 Key = 4e54f70e5f5fc9f384a64fb24ea6dc4f (Expected w[7])
+# Decrypt Round 4 Key = 6d88a37a110b3efddbf98641ca0093fd (Expected w[6])
+# Decrypt Round 5 Key = d4d1c6f87c839d87caf2b8bc11f915bc (Expected w[5])
+# Decrypt Round 6 Key = ef44a541a8525b7fb671253bdb0bad00 (Expected w[4])
+# Decrypt Round 7 Key = 3d80477d4716fe3e1e237e446d7a883b (Expected w[3])
+# Decrypt Round 8 Key = f2c295f27a96b9435935807a7359f67f (Expected w[2])
+# Decrypt Round 9 Key = a0fafe1788542cb123a339392a6c7605 (Expected w[1])
+# Decrypt Round 10 Key = 2b7e151628aed2a6abf7158809cf4f3c (Expected w[0])
+# 
+# ======================================
+# Simulation Summary:
+# PASS = 22, FAIL = 0
+# ======================================
+# ** Note: $stop    : Testbenches/key_scheduler_tb.v(88)
+#    Time: 110 ns  Iteration: 0  Instance: /key_scheduler_tb
+# Break in Module key_scheduler_tb at Testbenches/key_scheduler_tb.v line 88
+# Stopped at Testbenches/key_scheduler_tb.v line 88
+#  quit
+# End time: 09:07:01 on Aug 05,2026, Elapsed time: 0:00:02
+# Errors: 0, Warnings: 0
+Reading pref.tcl
+
+# 2020.1
+
+# vsim -c key_expansion_tb -do "run -all; quit" 
+# Start time: 09:07:05 on Aug 05,2026
+# Loading work.key_expansion_tb
+# Loading work.key_expansion
+# Loading work.next_key_128
+# Loading work.sbox
+# run -all
+# =================================================================================
+#                           AES-128 KEY EXPANSION OUTPUT                           
+# =================================================================================
+# Round |    Word 0 (W0)   |    Word 1 (W1)   |    Word 2 (W2)   |    Word 3 (W3)   
+# ---------------------------------------------------------------------------------
+#    0  |     2b7e1516     |     28aed2a6     |     abf71588     |     09cf4f3c
+#    1  |     a0fafe17     |     88542cb1     |     23a33939     |     2a6c7605
+#    2  |     f2c295f2     |     7a96b943     |     5935807a     |     7359f67f
+#    3  |     3d80477d     |     4716fe3e     |     1e237e44     |     6d7a883b
+#    4  |     ef44a541     |     a8525b7f     |     b671253b     |     db0bad00
+#    5  |     d4d1c6f8     |     7c839d87     |     caf2b8bc     |     11f915bc
+#    6  |     6d88a37a     |     110b3efd     |     dbf98641     |     ca0093fd
+#    7  |     4e54f70e     |     5f5fc9f3     |     84a64fb2     |     4ea6dc4f
+#    8  |     ead27321     |     b58dbad2     |     312bf560     |     7f8d292f
+#    9  |     ac7766f3     |     19fadc21     |     28d12941     |     575c006e
+#   10  |     d014f9a8     |     c9ee2589     |     e13f0cc8     |     b6630ca6
+# =================================================================================
+# Verification Complete
+# ** Note: $finish    : Testbenches/key_expansion_tb.v(36)
+#    Time: 225 ns  Iteration: 0  Instance: /key_expansion_tb
+# End time: 09:07:07 on Aug 05,2026, Elapsed time: 0:00:02
+# Errors: 0, Warnings: 0
