@@ -1,0 +1,45 @@
+# transcript_ CBC-AES128 (encryption)
+# ** Error: Acs sdne.
+# 
+#        Unable to replace existing ini file (C:/Users/Dell/Desktop/AES/Encryption/AES_CBC_ENC.mpf).  File can not be renamed.
+# ** Error: Acs sdne.
+# 
+#        Unable to replace existing ini file (C:/Users/Dell/Desktop/AES/Encryption/AES_CBC_ENC.mpf).  File can not be renamed.
+# Break key hit
+
+# Plaintext is
+#     6bc1bee22e409f96e93d7e117393172a
+#     ae2d8a571e03ac9c9eb76fac45af8e51
+#     30c81c46a35ce411e5fbc1191a0a52ef
+#     f69f2445df4f9b17ad2b417be66c3710
+# 
+# Block #1
+#     Plaintext     6bc1bee22e409f96e93d7e117393172a
+#     InputBlock    6bc0bce12a459991e134741a7f9e1925
+#     Ciphertext    7649abac8119b246cee98e9b12e9197d
+# 
+# Block #2
+#     Plaintext     ae2d8a571e03ac9c9eb76fac45af8e51
+#     InputBlock    d86421fb9f1a1eda505ee1375746972c
+#     Ciphertext    5086cb9b507219ee95db113a917678b2
+# 
+# Block #3
+#     Plaintext     30c81c46a35ce411e5fbc1191a0a52ef
+#     InputBlock    604ed7ddf32efdff7020d0238b7c2a5d
+#     Ciphertext    73bed6b8e3c1743b7116e69e22229516
+# 
+# Block #4
+#     Plaintext     f69f2445df4f9b17ad2b417be66c3710
+#     InputBlock    8521f2fd3c8eef2cdc3da7e5c44ea206
+#     Ciphertext    3ff1caa1681fac09120eca307586e1a7
+# 
+# Ciphertext is
+#     7649abac8119b246cee98e9b12e9197d
+#     5086cb9b507219ee95db113a917678b2
+#     73bed6b8e3c1743b7116e69e22229516
+#     3ff1caa1681fac09120eca307586e1a7
+# 
+# ****************************************************
+# ====================================================
+# [PASS] AES CBC Encryption
+# ======================================
