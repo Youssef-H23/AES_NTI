@@ -1,30 +1,95 @@
 `include "aes_params.vh"
-module Decrypt_Top (
-    input  wire [`STATE_WIDTH-1:0] state_in,
-    input  wire [`STATE_WIDTH-1:0] round_key,
-    output wire [`STATE_WIDTH-1:0] state_out
+
+module Decrypt_Top #(
+    parameter KEY_BITS   = 128,
+    parameter NUM_ROUNDS = 10
+)(
+    input  wire [`STATE_WIDTH-1:0] ciphertext,
+    input  wire [`STATE_WIDTH-1:0] key,
+    input  wire [`STATE_WIDTH-1:0] iv,
+    output wire [`STATE_WIDTH-1:0] plaintext
 );
-    decrypt_initial_round u_decrypt_initial_round (
-        .state_in  (state_in),
-        .round_key (round_key),
-        .state_out (state_out)
+
+    wire [4*(NUM_ROUNDS+1)*32-1:0] w;
+
+    // Round keys
+    wire [`STATE_WIDTH-1:0] r_key [0:NUM_ROUNDS];
+
+    // Round states
+    wire [`STATE_WIDTH-1:0] state [0:NUM_ROUNDS];
+
+    //---------------------------------------------------------
+    // Key Expansion
+    //---------------------------------------------------------
+    key_expansion #(
+        .KEY_BITS(KEY_BITS),
+        .NUM_ROUNDS(NUM_ROUNDS)
+    ) u_key_expansion (
+        .key(key),
+        .w(w)
     );
 
-    decrypt_round u_decrypt_round (
-        .state_in  (state_out),
-        .round_key (round_key),
-        .state_out (state_out)
+    //---------------------------------------------------------
+    // Key Scheduler
+    //---------------------------------------------------------
+    genvar i;
+    generate
+        for (i = 0; i <= NUM_ROUNDS; i = i + 1) begin : gen_key_scheduler
+
+            key_scheduler #(
+                .KEY_BITS(KEY_BITS),
+                .NUM_ROUNDS(NUM_ROUNDS)
+            ) u_ks (
+                .w(w),
+                .round_idx(i[3:0]),
+                .decrypt(1'b1),
+                .round_key(r_key[i])
+            );
+
+        end
+    endgenerate
+
+    //---------------------------------------------------------
+    // Initial Round (Round 10)
+    //---------------------------------------------------------
+    decrypt_initial_round u_initial_round (
+        .state_in (ciphertext),
+        .round_key(r_key[0]),          // K10
+        .state_out(state[0])
     );
 
-    key_expansion u_key_expansion (
-        .round_key (round_key),
-        .next_round_key (round_key)
+    //---------------------------------------------------------
+    // Rounds 9 -> 1
+    //---------------------------------------------------------
+    genvar r;
+    generate
+        for (r = 1; r < NUM_ROUNDS; r = r + 1) begin : gen_decrypt_rounds
+
+            decrypt_round u_round (
+                .state_in (state[r-1]),
+                .round_key(r_key[r]),   // K9 .. K1
+                .state_out(state[r])
+            );
+
+        end
+    endgenerate
+
+    //---------------------------------------------------------
+    // Final AddRoundKey (Round 0)
+    //---------------------------------------------------------
+    add_round_key u_final_add_round_key (
+        .state_in (state[NUM_ROUNDS-1]),
+        .round_key(r_key[NUM_ROUNDS]), // K0
+        .state_out(state[NUM_ROUNDS])
     );
 
-    add_round_key u_add_round_key (
-        .state_in  (state_out),
-        .round_key (round_key),
-        .state_out (state_out)
+    //---------------------------------------------------------
+    // CBC 
+    //---------------------------------------------------------
+    add_vector u_add_vector (
+        .plaintext(state[NUM_ROUNDS]),
+        .vector(iv),
+        .state_out(plaintext)
     );
 
 endmodule
