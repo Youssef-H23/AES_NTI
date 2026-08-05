@@ -41,7 +41,7 @@ module Decrypt_Top #(
                 .NUM_ROUNDS(NUM_ROUNDS)
             ) u_ks (
                 .w(w),
-                .round_idx(4'(i)),
+                .round_idx(i[3:0]),
                 .decrypt(1'b1),
                 .round_key(r_key[i])
             );
@@ -54,7 +54,7 @@ module Decrypt_Top #(
     //---------------------------------------------------------
     decrypt_initial_round u_initial_round (
         .state_in (ciphertext),
-        .round_key(r_key[NUM_ROUNDS]),
+        .round_key(r_key[0]),          // K10
         .state_out(state[0])
     );
 
@@ -67,7 +67,7 @@ module Decrypt_Top #(
 
             decrypt_round u_round (
                 .state_in (state[r-1]),
-                .round_key(r_key[NUM_ROUNDS-r]),
+                .round_key(r_key[r]),   // K9 .. K1
                 .state_out(state[r])
             );
 
@@ -78,13 +78,13 @@ module Decrypt_Top #(
     // Final AddRoundKey (Round 0)
     //---------------------------------------------------------
     add_round_key u_final_add_round_key (
-        .state_in(state[NUM_ROUNDS-1]),
-        .round_key(r_key[0]),
+        .state_in (state[NUM_ROUNDS-1]),
+        .round_key(r_key[NUM_ROUNDS]), // K0
         .state_out(state[NUM_ROUNDS])
     );
 
     //---------------------------------------------------------
-    // CBC XOR (IV)
+    // CBC 
     //---------------------------------------------------------
     add_vector u_add_vector (
         .plaintext(state[NUM_ROUNDS]),
