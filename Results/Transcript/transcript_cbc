@@ -1,0 +1,51 @@
+# transcript_cbc
+# ======================================
+#       AES CBC DECRYPT TEST
+# ======================================
+# ====================================================
+#                   CBC-AES128 (Decryption)
+# ====================================================
+# 
+# Key is
+#     2b7e151628aed2a6abf7158809cf4f3c
+# 
+# Ciphertext is
+#     7649abac8119b246cee98e9b12e9197d
+#     5086cb9b507219ee95db113a917678b2
+#     73bed6b8e3c1743b7116e69e22229516
+#     3ff1caa1681fac09120eca307586e1a7
+# 
+# Block #1
+#     Ciphertext    7649abac8119b246cee98e9b12e9197d
+#     InputBlock    7649abac8119b246cee98e9b12e9197d
+#     OutputBlock   6bc0bce12a459991e134741a7f9e1925
+#     Plaintext     6bc1bee22e409f96e93d7e117393172a
+# 
+# Block #2
+#     Ciphertext    5086cb9b507219ee95db113a917678b2
+#     InputBlock    5086cb9b507219ee95db113a917678b2
+#     OutputBlock   d86421fb9f1a1eda505ee1375746972c
+#     Plaintext     ae2d8a571e03ac9c9eb76fac45af8e51
+# 
+# Block #3
+#     Ciphertext    73bed6b8e3c1743b7116e69e22229516
+#     InputBlock    73bed6b8e3c1743b7116e69e22229516
+#     OutputBlock   604ed7ddf32efdff7020d0238b7c2a5d
+#     Plaintext     30c81c46a35ce411e5fbc1191a0a52ef
+# 
+# Block #4
+#     Ciphertext    3ff1caa1681fac09120eca307586e1a7
+#     InputBlock    3ff1caa1681fac09120eca307586e1a7
+#     OutputBlock   8521f2fd3c8eef2cdc3da7e5c44ea206
+#     Plaintext     f69f2445df4f9b17ad2b417be66c3710
+# 
+# Plaintext is
+#     6bc1bee22e409f96e93d7e117393172a
+#     ae2d8a571e03ac9c9eb76fac45af8e51
+#     30c81c46a35ce411e5fbc1191a0a52ef
+#     f69f2445df4f9b17ad2b417be66c3710
+# 
+# ****************************************************
+# ====================================================
+# [PASS] AES CBC Decryption
+# ======================================
