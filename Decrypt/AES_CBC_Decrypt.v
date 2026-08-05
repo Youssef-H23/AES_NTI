@@ -11,9 +11,4 @@ module AES_CBC_Decrypt (
         .state_out (state_out)
     );
 
-    add_vector u_add_vector (
-        .plaintext (state_out),
-        .vector    (round_key),
-        .state_out (state_out)
-    );
 endmodule
