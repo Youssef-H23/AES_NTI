@@ -6,17 +6,16 @@ module Decrypt_Top #(
 )(
     input  wire [`STATE_WIDTH-1:0] ciphertext,
     input  wire [`STATE_WIDTH-1:0] key,
-    input  wire [`STATE_WIDTH-1:0] iv,
-    output wire [`STATE_WIDTH-1:0] plaintext
+
+    output wire [`STATE_WIDTH-1:0] decrypted_state
 );
 
     wire [4*(NUM_ROUNDS+1)*32-1:0] w;
 
-    // Round keys
     wire [`STATE_WIDTH-1:0] r_key [0:NUM_ROUNDS];
 
-    // Round states
     wire [`STATE_WIDTH-1:0] state [0:NUM_ROUNDS];
+
 
     //---------------------------------------------------------
     // Key Expansion
@@ -28,6 +27,7 @@ module Decrypt_Top #(
         .key(key),
         .w(w)
     );
+
 
     //---------------------------------------------------------
     // Key Scheduler
@@ -49,14 +49,16 @@ module Decrypt_Top #(
         end
     endgenerate
 
+
     //---------------------------------------------------------
-    // Initial Round (Round 10)
+    // Initial Round (K10)
     //---------------------------------------------------------
     decrypt_initial_round u_initial_round (
         .state_in (ciphertext),
-        .round_key(r_key[0]),          // K10
+        .round_key(r_key[0]),
         .state_out(state[0])
     );
+
 
     //---------------------------------------------------------
     // Rounds 9 -> 1
@@ -67,29 +69,22 @@ module Decrypt_Top #(
 
             decrypt_round u_round (
                 .state_in (state[r-1]),
-                .round_key(r_key[r]),   // K9 .. K1
+                .round_key(r_key[r]),
                 .state_out(state[r])
             );
 
         end
     endgenerate
 
+
     //---------------------------------------------------------
-    // Final AddRoundKey (Round 0)
+    // Final AddRoundKey (K0)
     //---------------------------------------------------------
     add_round_key u_final_add_round_key (
         .state_in (state[NUM_ROUNDS-1]),
-        .round_key(r_key[NUM_ROUNDS]), // K0
-        .state_out(state[NUM_ROUNDS])
+        .round_key(r_key[NUM_ROUNDS]),
+        .state_out(decrypted_state)
     );
 
-    //---------------------------------------------------------
-    // CBC 
-    //---------------------------------------------------------
-    add_vector u_add_vector (
-        .plaintext(state[NUM_ROUNDS]),
-        .vector(iv),
-        .state_out(plaintext)
-    );
 
 endmodule
