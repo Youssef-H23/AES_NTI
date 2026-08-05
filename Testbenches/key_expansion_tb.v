@@ -1,3 +1,4 @@
+`include "aes_params.vh"
 module key_expansion_tb();
 
     reg [127:0] key; reg [1407:0] expected_expansion;
@@ -101,6 +102,7 @@ module key_expansion_pipelined_tb();
                 end 
             end
         end
+        #5;
         $display("Verification Complete");
         $finish;
     end
@@ -132,11 +134,11 @@ module key_expansion_pipelined_tb();
     end
 endmodule
 
-module next_key_128_tb ();
+module next_key_tb ();
     reg  [3:0]r; 
     reg  [127:0]in, expected;
     wire [127:0]out;
-    next_key_128 dut (.r(r), .in(in), .out(out));
+    next_key dut (.r(r), .in(in), .out(out));
     
     initial begin
         in = 128'h2b7e1516_28aed2a6_abf71588_09cf4f3c;

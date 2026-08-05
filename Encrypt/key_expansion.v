@@ -1,34 +1,26 @@
 `include "aes_params.vh"
-module key_expansion #(parameter KEY_BITS = 128, parameter NUM_ROUNDS = (KEY_BITS/32+6))(
-    input  [KEY_BITS-1:0]key,
-    output [4*(NUM_ROUNDS+1)*32-1:0] w
+module key_expansion (
+    input  [`KEY_BITS-1:0]key,
+    output [4*(`NUM_ROUNDS+1)*32-1:0] w
 );
-    localparam NK = KEY_BITS/32;
+    localparam NK = `KEY_BITS/32;
     //Assign Key0
-    assign w[KEY_BITS-1:0] = key;
+    assign w[`KEY_BITS-1:0] = key;
     genvar i;
     generate
     //generate round keys
-    case (NK)
-        4 : begin
-            for (i=1;i<NUM_ROUNDS+1;i=i+1) begin
-                next_key_128 rnd (.r(4'(i)),.in(w[i*128-1 -:128]), .out(w[(i+1)*128-1 -:128]));
-            end
-        end 
-        default: begin
-            for (i=1;i<NUM_ROUNDS+1;i=i+1) begin
-                next_key_128 rnd (.r(4'(i)),.in(w[i*128-1 -:128]), .out(w[(i+1)*128-1 -:128]));
-            end
-        end 
-    endcase
+    for (i=1;i<`NUM_ROUNDS+1;i=i+1) begin
+        next_key rnd (.r(4'(i)),.in(w[i*`KEY_BITS-1 -:128]), .out(w[(i+1)*`KEY_BITS-1 -:128]));
+    end
     endgenerate
 endmodule
 
-module next_key_128(
+module next_key(
     input  [3:0]r,
-    input  [127:0]in,
-    output [127:0]out
+    input  [`KEY_BITS-1:0]in,
+    output [`KEY_BITS-1:0]out
 );
+    localparam NK = `KEY_BITS/32;
     wire [31:0] rotword, subword, t_w;
 
     //[B0,B1,B2,B3] ==> [sbox(B1),sbox(B2),sbox(B3),sbox(B0)] 
@@ -59,82 +51,65 @@ module next_key_128(
 
     //Wi = Wi-4 + T(W)
     assign t_w = subword ^ {rcon, 24'h000000};
-    assign out[127:96] = in[127:96] ^ t_w;
+    assign out[`KEY_BITS-1 -:32] = in[`KEY_BITS-1 -:32] ^ t_w;
     //Wi = Wi-4 + Wi-1
-    assign out[95:64] = in[95:64] ^ out[127:96];
-    assign out[63:32] = in[63:32] ^ out[95:64];
-    assign out[31:00] = in[31:00] ^ out[63:32];    
+    genvar i;
+    generate
+    for(i=NK-1;i>0;i=i-1) begin
+        if(NK>6 && (NK-i)%NK==4) begin
+            wire [31:0] rotword_t, subword_t;
+            assign rotword_t = {out[32*(i)-1-8 -:24],in[32*(i)-1 -:8]};
+            sbox sbox0 (.i_data(rotword_t[31:24]),.o_data(subword_t[31:24]));
+            sbox sbox1 (.i_data(rotword_t[23:16]),.o_data(subword_t[23:16]));
+            sbox sbox2 (.i_data(rotword_t[15:08]),.o_data(subword_t[15:08]));
+            sbox sbox3 (.i_data(rotword_t[07:00]),.o_data(subword_t[07:00]));
+            assign out[32*(i)-1 -:32] = in[32*(i)-1 -:32] ^ subword_t;
+        end else begin
+            assign out[32*(i)-1 -:32] = in[32*(i)-1 -:32] ^ out[32*(i+1)-1 -:32];
+        end
+    end
+    endgenerate
 endmodule
 
 
 // Pipelined module, untested
-module key_expansion_pipelined #(parameter KEY_BITS = 128, parameter NUM_ROUNDS = (KEY_BITS/32+6))(
+module key_expansion_pipelined (
     input  clk,
     input  rst_n,
-    input  [KEY_BITS-1:0]key,
-    output [4*(NUM_ROUNDS+1)*32-1:0] w
+    input  [`KEY_BITS-1:0]key,
+    output [4*(`NUM_ROUNDS+1)*32-1:0] w
 );
-    localparam NK = KEY_BITS/32;
-    reg [KEY_BITS-1:0] w_pipe [0:NUM_ROUNDS-1];   
+    localparam NK = `KEY_BITS/32;
+    reg [`KEY_BITS-1:0] w_pipe [0:`NUM_ROUNDS-1];   
     //Assign Key0
-    assign w[KEY_BITS-1:0] = key;
+    assign w[`KEY_BITS-1:0] = key;
     
     genvar i;
     generate
     //generate round keys
-    case (NK)
-        4 : begin
-            wire [KEY_BITS-1:0] next_key0;
-            next_key_128 rnd0 (.r(4'b0001),.in(w[KEY_BITS-1:0]), .out(next_key0));
-            always @(posedge clk or negedge rst_n) begin
-                    if (!rst_n) begin
-                        w_pipe[0] <= {KEY_BITS{1'b0}};
-                    end else begin
-                        w_pipe[0] <= next_key0;
-                    end
+    wire [`KEY_BITS-1:0] next_key0;
+    next_key_128 rnd0 (.r(4'b0001),.in(w[`KEY_BITS-1:0]), .out(next_key0));
+    always @(posedge clk or negedge rst_n) begin
+            if (!rst_n) begin
+                w_pipe[0] <= {`KEY_BITS{1'b0}};
+            end else begin
+                w_pipe[0] <= next_key0;
             end
-            assign w[KEY_BITS +:KEY_BITS] = w_pipe[0];
-            for (i=1;i<NUM_ROUNDS;i=i+1) begin
-                wire [KEY_BITS-1:0] next_key;
-                next_key_128 rnd (.r(4'(i)),.in(w_pipe[i-1]), .out(next_key));
+    end
+    assign w[`KEY_BITS +:`KEY_BITS] = w_pipe[0];
+    for (i=1;i<`NUM_ROUNDS;i=i+1) begin
+        wire [`KEY_BITS-1:0] next_key;
+        next_key rnd (.r(4'(i+1)),.in(w_pipe[i-1]), .out(next_key));
 
-                always @(posedge clk or negedge rst_n) begin
-                    if (!rst_n) begin
-                        w_pipe[i] <= {KEY_BITS{1'b0}};
-                    end else begin
-                        w_pipe[i] <= next_key;
-                    end
-                end
-
-                assign w[(i+1)*KEY_BITS +:KEY_BITS] = w_pipe[i];
+        always @(posedge clk or negedge rst_n) begin
+            if (!rst_n) begin
+                w_pipe[i] <= {`KEY_BITS{1'b0}};
+            end else begin
+                w_pipe[i] <= next_key;
             end
-        end 
-        default: begin
-            wire [KEY_BITS-1:0] next_key0;
-            next_key_128 rnd0 (.r(4'b0001),.in(w[KEY_BITS-1:0]), .out(next_key0));
-            always @(posedge clk or negedge rst_n) begin
-                    if (!rst_n) begin
-                        w_pipe[0] <= {KEY_BITS{1'b0}};
-                    end else begin
-                        w_pipe[0] <= next_key0;
-                    end
-            end
-            assign w[KEY_BITS +:KEY_BITS] = w_pipe[0];
-            for (i=1;i<NUM_ROUNDS;i=i+1) begin
-                wire [KEY_BITS-1:0] next_key;
-                next_key_128 rnd (.r(4'(i)),.in(w_pipe[i-1]), .out(next_key));
+        end
 
-                always @(posedge clk or negedge rst_n) begin
-                    if (!rst_n) begin
-                        w_pipe[i] <= {KEY_BITS{1'b0}};
-                    end else begin
-                        w_pipe[i] <= next_key;
-                    end
-                end
-
-                assign w[(i+1)*KEY_BITS +:KEY_BITS] = w_pipe[i];
-            end
-        end  
-    endcase
+        assign w[(i+1)*`KEY_BITS +:`KEY_BITS] = w_pipe[i];
+    end
     endgenerate
 endmodule

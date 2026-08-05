@@ -1,3 +1,4 @@
+`include "aes_params.vh"
 `timescale 1ns/1ps
 
 module AES_CBC_Encrypt_tb;
