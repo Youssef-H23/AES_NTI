@@ -35,7 +35,7 @@ module encrypt_final_round
     subbytes #(
         .STATE_WIDTH(STATE_WIDTH)
     ) u_subbytes (
-        .i_state(sub_bytes_in),
+        .i_state(state_in),
         .o_state(sub_bytes_out)
     );
 
