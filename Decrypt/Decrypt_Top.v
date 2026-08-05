@@ -1,3 +1,4 @@
+`include "aes_params.vh"
 module Decrypt_Top (
     input  wire [`STATE_WIDTH-1:0] state_in,
     input  wire [`STATE_WIDTH-1:0] round_key,

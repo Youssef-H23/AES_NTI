@@ -1,7 +1,7 @@
 // aes_params.vh - Include this file in all modules
 `define AES_KEY_SIZE_128 1
-`define AES_KEY_SIZE_192 2
-`define AES_KEY_SIZE_256 3
+// `define AES_KEY_SIZE_192 2
+// `define AES_KEY_SIZE_256 3
 
 `ifdef AES_KEY_SIZE_128
     `define KEY_BITS 128
