@@ -1,0 +1,121 @@
+# ======================================
+#   AES CBC DECRYPT NIST SP 800-38A TEST
+# ======================================
+# 
+# Time=0  
+# Ciphertext = 7649abac8119b246cee98e9b12e9197d       
+# State0     = c5cf115fd48d2f504e26489f1d4a8530        
+# State1     = 04338debdbb2bbfda56ee1df087b26b2        
+# State2     = d432c816ddce720e1cb7c345e9296c4a         
+# State3     = 11d64000ce454ff43b29cf8d3ec534cd         
+# State4     = d38e471597fea6e6c10de7fe544d6104         
+# State5     = ff51ecc816f221045002e18979dc9b50        
+# State6     = 7f1b435d5ea787f22ab743d729ad1a70       
+# State7     = 78b2540a6d08ab1dd954442554f4d358        
+# State8     = a9c4bcb9cddfb467b53836754f924cce        
+# State9     = 40bea9f702eb4b374ac3619276515619       
+# State10    = 6bc0bce12a459991e134741a7f9e1925       
+# Plaintext  = 6bc1bee22e409f96e93d7e117393172a
+# 
+# =========== Round Keys ===========
+# K0  = d014f9a8c9ee2589e13f0cc8b6630ca6
+# K1  = ac7766f319fadc2128d12941575c006e
+# K2  = ead27321b58dbad2312bf5607f8d292f
+# K3  = 4e54f70e5f5fc9f384a64fb24ea6dc4f
+# K4  = 6d88a37a110b3efddbf98641ca0093fd
+# K5  = d4d1c6f87c839d87caf2b8bc11f915bc
+# K6  = ef44a541a8525b7fb671253bdb0bad00
+# K7  = 3d80477d4716fe3e1e237e446d7a883b
+# K8  = f2c295f27a96b9435935807a7359f67f
+# K9  = a0fafe1788542cb123a339392a6c7605
+# K10 = 2b7e151628aed2a6abf7158809cf4f3c
+# Block 1 Plaintext = 6bc1bee22e409f96e93d7e117393172a
+# Expected          = 6BC1BEE22E409F96E93D7E117393172A
+# [PASS] CBC Block 1
+#====================================================
+#
+# Time=10000
+#
+# Ciphertext = 5086cb9b507219ee95db113a917678b2         
+# State0     = 3a2fde0af974ca04ca1ca19b3dae6d66         
+# State1     = a1983d185c6261b620788e8d4071a5d7         
+# State2     = 79ca51af0b8af599bfe88436544dd0e0        
+# State3     = 29dda4eb33fe212f804d8f7b920ee933        
+# State4     = 1ac1466bb7cba1960eb8ba0a5fcd47ec      
+# State5     = d2f5d2f7e6994b8a380fbd1e84d6d183        
+# State6     = e9843efa2c4c1881d1a9ec63ca8061c6        
+# State7     = 6f26cdfcd791b584446715ab4040509d         
+# State8     = 43e65ebd9bb66b49c7c191b724be0214         
+# State9     = f31a34edb7b4cc7cfba9f4bf5e89d810         
+# State10    = d86421fb9f1a1eda505ee1375746972c        
+# Plaintext  = ae2d8a571e03ac9c9eb76fac45af8e51
+# Block 2 Plaintext = ae2d8a571e03ac9c9eb76fac45af8e51
+# Expected          = AE2D8A571E03AC9C9EB76FAC45AF8E51
+# [PASS] CBC Block 2
+# 
+#====================================================
+# Time=20000
+#
+# Ciphertext = 73bed6b8e3c1743b7116e69e22229516    
+# State0     = 71f8bb3e9562f9b9964e4efce74c707c     
+# State1     = de6c4d2347a7e3700d06f980b6df7237        
+# State2     = ab2e57284d39e0d7cf14cb602d94d7e5
+# State3     = e93df931cf062d1f8202e486cc2a6409        
+# State4     = 9774a09450dffd4eb5f2ff3963de7a54         
+# State5     = 805a432eaa55ff5864f30becc6e6a4d6         
+# State6     = f5dff0b20150fc305b524f6314348012        
+# State7     = 274d7d127b2866f25ff90f6f45e813d8         
+# State8     = d8d6fd77a139201c1364e12c772aede5         
+# State9     = 4b30c2cbdb802f59dbd7c5ab82b36561        
+# State10    = 604ed7ddf32efdff7020d0238b7c2a5d        
+# Plaintext  = 30c81c46a35ce411e5fbc1191a0a52ef
+# Block 3 Plaintext = 30c81c46a35ce411e5fbc1191a0a52ef
+# Expected          = 30C81C46A35CE411E5FBC1191A0A52EF
+# [PASS] CBC Block 3
+# 
+#====================================================
+# Time=30000
+#         
+# Ciphertext = 3ff1caa1681fac09120eca307586e1a7         
+# State0     = 612ac73af12a53e17e2b6609332ef240        
+# State1     = a6a8f1a121f17dd7772771e3f52bca9c         
+# State2     = c012781ae49f659eae73c4a693e945a4         
+# State3     = 557d706881d80d8108ea573ad4f3caad        
+# State4     = fd4191151f8c121cda99897e8d5403e8        
+# State5     = 9a5f83414b2b5cccc7b01f6023eb1bcf         
+# State6     = 1fc6275028663248d107d5151b2cf09a         
+# State7     = 41ceb9c5e331f9547c2b22ad8a024d0c       
+# State8     = 06b258bb4750284c2c9771591a010e49         
+# State9     = ae5fe7eb14203d8a77cab26dcd81ed3a         
+# State10    = 8521f2fd3c8eef2cdc3da7e5c44ea206        
+# Plaintext  = f69f2445df4f9b17ad2b417be66c3710
+# Block 4 Plaintext = f69f2445df4f9b17ad2b417be66c3710
+# Expected          = F69F2445DF4F9B17AD2B417BE66C3710
+# [PASS] CBC Block 4
+#
+# ====================================================
+#
+# Time=40000       
+#
+# Ciphertext = 3925841d02dc09fbdc118597196a0b32       
+# State0     = eb40f21e592e38848ba113e71bc342d2         
+# State1     = ea835cf00445332d655d98ad8596b0c5       
+# State2     = 5a4142b11949dc1fa3e019657a8c040c       
+# State3     = 260e2e173d41b77de86472a9fdd28b25        
+# State4     = f1006f55c1924cef7cc88b325db5d50c        
+# State5     = e0927fe8c86363c0d9b1355085b8be01        
+# State6     = 486c4eee671d9d0d4de3b138d65f58e7    
+# State7     = aa8f5f0361dde3ef82d24ad26832469a    
+# State8     = a49c7ff2689f352b6b5bea43026a5049
+# State9     = 193de3bea0f4e22b9ac68d2ae9f84808
+# State10    = 3243f6a8885a308d313198a2e0370734
+# Plaintext  = 3243f6a8885a308d313198a2e0370734
+# Additional Test Plaintext = 3243f6a8885a308d313198a2e0370734
+# Expected                  = 3243F6A8885A308D313198A2E0370734
+# [PASS] Additional Test (IV = 0)
+# 
+# ======================================
+# Simulation Summary
+# PASS = 5
+# FAIL = 0
+# ======================================
