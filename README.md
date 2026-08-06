@@ -168,7 +168,7 @@ Below are the simulation waveform results captured from ModelSim for AES-128 CBC
 Submitted to **Eng. Ahmed Husseiny**.
 
 **Project Team:**
-- Ebram Adeb Alfi
+- Ebram Adeeb Alfy Nageeb 
 - Radwa Mohammed Reda Ahmed
 - Menna Mahmoud Mohammed Abd-Elhameed
 - Youssef Haggag Fawzy Morsy
