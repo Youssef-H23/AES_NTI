@@ -1,6 +1,6 @@
 # Advanced Encryption Standard (AES) Hardware Accelerator in Verilog
 
-A comprehensive, modular, and parameterizable hardware implementation of the **Advanced Encryption Standard (AES)** (FIPS 197) in Verilog HDL. This repository includes complete data paths for both **Encryption** and **Decryption**, support for **Cipher Block Chaining (CBC)** mode, dynamic **Key Expansion & Scheduling**, and rigorous verification testbenches verified via ModelSim.
+A comprehensive, modular, and parameterizable hardware implementation of the **Advanced Encryption Standard (AES)** (FIPS 197) in Verilog HDL. This repository includes complete data paths for both **Encryption** and **Decryption**, support for **Cipher Block Chaining (CBC)** mode, dynamic **Key Expansion & Scheduling**, rigorous verification testbenches verified via ModelSim, and post-synthesis elaboration schematics generated in Xilinx Vivado.
 
 ---
 
@@ -13,6 +13,7 @@ A comprehensive, modular, and parameterizable hardware implementation of the **A
 - **CBC Mode Support:** Includes `AES_CBC_Encrypt` and `AES_CBC_Decrypt` top modules handling 4-block (512-bit) message streams with Initialization Vector (IV) chaining [a FSM to be implemented].
 - **On-the-Fly Key Expansion & Scheduling:** Dedicated `key_expansion` and hardware `key_scheduler` supporting round key generation for both forward and inverse ciphers.
 - **Verification & Simulation Suite:** Comprehensive unit and integration testbenches with ModelSim automation scripts (`run.do`), captured simulation wave outputs, and test transcripts.
+- **Vivado Elaboration Schematics:** RTL elaboration diagrams for the core sub-modules and top-level datapaths, generated in Xilinx Vivado, showing the actual synthesizable hardware structure of the design.
 
 ---
 
@@ -63,9 +64,10 @@ D:\NTI 2026\AES_NTI\
 │   ├── key_expansion_tb.v / key_scheduler_tb.v
 │   └── ...
 │
-├── Results/                  # Verification Artifacts
+├── Results/                  # Verification & Elaboration Artifacts
 │   ├── WAVE/                 # Simulation waveform snapshots (.png)
-│   └── Transcript/           # Simulation text logs and transcripts (.txt)
+│   ├── Transcript/           # Simulation text logs and transcripts (.txt)
+│   └── Vivado Elaboration/   # RTL elaboration schematics from Xilinx Vivado (.png)
 │
 └── Reference/                # Standards and Documentation
     ├── NIST.FIPS.197-upd1.pdf# Official NIST AES FIPS-197 Standard
@@ -73,6 +75,12 @@ D:\NTI 2026\AES_NTI\
 ```
 
 ---
+
+## Hardware Architecture
+
+![AES Hardware Architecture](AES_Hardware_Architecture.jpeg)
+
+*Overall RTL hierarchy of the AES-CBC hardware accelerator. The left side shows the encryption datapath, while the right side shows the decryption datapath.*
 
 ## ⚙️ Configuration & Parameters
 
@@ -99,6 +107,43 @@ To run simulations and verify the design using **ModelSim / QuestaSim**:
    do run.do
    ```
 3. Inspect waveform outputs in `Results/WAVE/` and transcripts in `Results/Transcript/`.
+
+---
+
+## 🧩 Vivado Elaboration Schematics
+
+To sanity-check the RTL structure independently of simulation, the design was elaborated in **Xilinx Vivado**. The screenshots below show the synthesized hardware view of the core building blocks and top-level datapaths, confirming that each module maps to the expected combinational/sequential logic.
+
+### SubBytes & S-Box
+
+![SubBytes](Results/Vivado%20Elaboration/sub_byte.png)
+![S-Box ROM](Results/Vivado%20Elaboration/sbox_rtl_rom.png)
+
+### MixColumns / Inverse MixColumns
+
+![MixColumns](Results/Vivado%20Elaboration/col_mix.png)
+![Inverse MixColumns](Results/Vivado%20Elaboration/inv_col_mix.png)
+
+### Key Expansion
+
+![Key Expansion](Results/Vivado%20Elaboration/key_expansion.png)
+
+### Encryption Round
+
+![Encryption Round](Results/Vivado%20Elaboration/Encryption_Round.png)
+
+### Decryption Datapath
+
+![Decrypt Initial Round](Results/Vivado%20Elaboration/Decrypt_Initial_Round.png)
+![Decrypt Round](Results/Vivado%20Elaboration/Decrypt_Round.png)
+![Decrypt Round (alt view)](Results/Vivado%20Elaboration/Decrypt_Round_2.png)
+
+### Decrypt Top-Level
+
+![Decrypt Top 1](Results/Vivado%20Elaboration/Decrypt_Top_1.png)
+![Decrypt Top 2](Results/Vivado%20Elaboration/Decrypt_Top_2.png)
+
+> Additional elaboration captures are available in [`Results/Vivado Elaboration/`](Results/Vivado%20Elaboration/).
 
 ---
 
@@ -129,7 +174,7 @@ Below are the simulation waveform results captured from ModelSim for AES-128 CBC
 Submitted to **Eng. Ahmed Husseiny**.
 
 **Project Team:**
-- Ebram Adeb Alfi
-- Radwa Mohammed Reda Ahmed
-- Menna Mahmoud Mohammed Abd-Elhameed
-- Youssef Haggag Fawzy Morsy
+1. Ebram Adeeb Alfy Nageeb — 211440
+2. Radwa Mohammed Reda Ahmed — 198263
+3. Menna Mahmoud Mohammed Abd-Elhameed — 309816
+4. Youssef Haggag Fawzy Morsy — 311965
