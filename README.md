@@ -168,7 +168,7 @@ Below are the simulation waveform results captured from ModelSim for AES-128 CBC
 Submitted to **Eng. Ahmed Husseiny**.
 
 **Project Team:**
-- Ebram Adeeb Alfy Nageeb 
-- Radwa Mohammed Reda Ahmed
-- Menna Mahmoud Mohammed Abd-Elhameed
-- Youssef Haggag Fawzy Morsy
+1. Ebram Adeeb Alfy Nageeb — 211440
+2. Radwa Mohammed Reda Ahmed — 198263
+3. Menna Mahmoud Mohammed Abd-Elhameed — 309816
+4. Youssef Haggag Fawzy Morsy — 311965
