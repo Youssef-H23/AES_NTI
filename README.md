@@ -78,7 +78,7 @@ D:\NTI 2026\AES_NTI\
 
 ## Hardware Architecture
 
-![AES Hardware Architecture](AES_Hardware_Architecture.png)
+![AES Hardware Architecture](AES_Hardware_Architecture.jpeg)
 
 *Overall RTL hierarchy of the AES-CBC hardware accelerator. The left side shows the encryption datapath, while the right side shows the decryption datapath.*
 
