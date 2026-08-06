@@ -10,7 +10,7 @@ module key_expansion (
     generate
     //generate round keys
     for (i=1;i<`NUM_ROUNDS+1;i=i+1) begin
-        next_key rnd (.r(4'(i)),.in(w[i*`KEY_BITS-1 -:128]), .out(w[(i+1)*`KEY_BITS-1 -:128]));
+        next_key rnd (.r(i[3:0]),.in(w[i*`KEY_BITS-1 -:128]), .out(w[(i+1)*`KEY_BITS-1 -:128]));
     end
     endgenerate
 endmodule
@@ -88,7 +88,7 @@ module key_expansion_pipelined (
     generate
     //generate round keys
     wire [`KEY_BITS-1:0] next_key0;
-    next_key_128 rnd0 (.r(4'b0001),.in(w[`KEY_BITS-1:0]), .out(next_key0));
+    next_key rnd0 (.r(4'b0001),.in(w[`KEY_BITS-1:0]), .out(next_key0));
     always @(posedge clk or negedge rst_n) begin
             if (!rst_n) begin
                 w_pipe[0] <= {`KEY_BITS{1'b0}};
@@ -99,7 +99,7 @@ module key_expansion_pipelined (
     assign w[`KEY_BITS +:`KEY_BITS] = w_pipe[0];
     for (i=1;i<`NUM_ROUNDS;i=i+1) begin
         wire [`KEY_BITS-1:0] next_key;
-        next_key rnd (.r(4'(i+1)),.in(w_pipe[i-1]), .out(next_key));
+        next_key rnd (.r(i[3:0]+1'b1),.in(w_pipe[i-1]), .out(next_key));
 
         always @(posedge clk or negedge rst_n) begin
             if (!rst_n) begin
