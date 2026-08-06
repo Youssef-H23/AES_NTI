@@ -107,10 +107,13 @@ To run simulations and verify the design using **ModelSim / QuestaSim**:
 Below are the simulation waveform results captured from ModelSim for AES-128 CBC Encryption and Decryption modes:
 
 ### 1. AES CBC Encryption Waveform
-![AES CBC Encryption](Results/WAVE/Final_wave_AES_CBC_128.png)
+![AES CBC Encryption](Results/WAVE/Final_wave1_AES_CBC_Encrypt.png)
 
-### 2. AES CBC Decryption Waveform
-![AES CBC Decryption](Results/WAVE/Wave_AES_CBC_Decrypt.png)
+### 2. AES CBC Encryption Waveform
+![AES CBC Encryption](Results/WAVE/Final_wave2_AES_CBC_Encrypt.png)
+
+### 3. AES CBC Decryption Waveform
+![AES CBC Decryption](Results/WAVE/Final_wave_AES_CBC_128.png)
 
 ---
 
