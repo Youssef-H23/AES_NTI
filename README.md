@@ -76,6 +76,12 @@ D:\NTI 2026\AES_NTI\
 
 ---
 
+## Hardware Architecture
+
+![AES Hardware Architecture](Results/Architecture/AES_Hardware_Architecture.png)
+
+*Overall RTL hierarchy of the AES-CBC hardware accelerator. The left side shows the encryption datapath, while the right side shows the decryption datapath.*
+
 ## ⚙️ Configuration & Parameters
 
 The core parameters are defined globally in `aes_params.vh`:
