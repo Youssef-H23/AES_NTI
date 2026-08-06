@@ -10,7 +10,7 @@ A comprehensive, modular, and parameterizable hardware implementation of the **A
 - **Complete Encrypt & Decrypt Cores:**
   - *Encryption:* Initial AddRoundKey, 9/11/13 standard rounds (`encrypt_round`), and a specialized final round (`encrypt_final_round`).
   - *Decryption:* Initial Inverse Round (`decrypt_initial_round`), 9/11/13 inverse rounds (`decrypt_round`), and final AddRoundKey.
-- **CBC Mode Support:** Includes `AES_CBC_Encrypt` and `AES_CBC_Decrypt` top modules handling 4-block (512-bit) message streams with Initialization Vector (IV) chaining.
+- **CBC Mode Support:** Includes `AES_CBC_Encrypt` and `AES_CBC_Decrypt` top modules handling 4-block (512-bit) message streams with Initialization Vector (IV) chaining [a FSM to be implemented].
 - **On-the-Fly Key Expansion & Scheduling:** Dedicated `key_expansion` and hardware `key_scheduler` supporting round key generation for both forward and inverse ciphers.
 - **Verification & Simulation Suite:** Comprehensive unit and integration testbenches with ModelSim automation scripts (`run.do`), captured simulation wave outputs, and test transcripts.
 
@@ -121,10 +121,11 @@ Below are the simulation waveform results captured from ModelSim for AES-128 CBC
 
 ---
 
-## 👤 Authors & Acknowledgments
+## 👤 Authors
 
-Developed as part of the NTI Digital Design & FPGA / ASIC Design curriculum by:
+Submitted to **Eng. Ahmed Husseiny**.
 
+**Project Team:**
 - Ebram Adeb Alfi
 - Radwa Mohammed Reda Ahmed
 - Menna Mahmoud Mohammed Abd-Elhameed
