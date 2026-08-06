@@ -20,10 +20,7 @@ module Decrypt_Top #(
     //---------------------------------------------------------
     // Key Expansion
     //---------------------------------------------------------
-    key_expansion #(
-        .KEY_BITS(KEY_BITS),
-        .NUM_ROUNDS(NUM_ROUNDS)
-    ) u_key_expansion (
+    key_expansion u_key_expansion (
         .key(key),
         .w(w)
     );
@@ -36,10 +33,7 @@ module Decrypt_Top #(
     generate
         for (i = 0; i <= NUM_ROUNDS; i = i + 1) begin : gen_key_scheduler
 
-            key_scheduler #(
-                .KEY_BITS(KEY_BITS),
-                .NUM_ROUNDS(NUM_ROUNDS)
-            ) u_ks (
+            key_scheduler u_ks (
                 .w(w),
                 .round_idx(i[3:0]),
                 .decrypt(1'b1),
