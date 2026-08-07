@@ -55,19 +55,20 @@ module next_key(
     assign out[`KEY_BITS-1 -:32] = in[`KEY_BITS-1 -:32] ^ t_w;
     //Wi = Wi-4 + Wi-1
     genvar i;
-    generate : word_gen
+    generate begin : word_gen
     for(i=NK-1;i>0;i=i-1) begin
         if(NK>6 && (NK-i)%NK==4) begin
             wire [31:0] subword_t;
             assign temp = out[32*(i+1)-1 -:32];
-            sbox sbox0 (.i_data(rotword_t[31:24]),.o_data(subword_t[31:24]));
-            sbox sbox1 (.i_data(rotword_t[23:16]),.o_data(subword_t[23:16]));
-            sbox sbox2 (.i_data(rotword_t[15:08]),.o_data(subword_t[15:08]));
-            sbox sbox3 (.i_data(rotword_t[07:00]),.o_data(subword_t[07:00]));
+            sbox sbox0 (.i_data(temp[31:24]),.o_data(subword_t[31:24]));
+            sbox sbox1 (.i_data(temp[23:16]),.o_data(subword_t[23:16]));
+            sbox sbox2 (.i_data(temp[15:08]),.o_data(subword_t[15:08]));
+            sbox sbox3 (.i_data(temp[07:00]),.o_data(subword_t[07:00]));
             assign out[32*(i)-1 -:32] = in[32*(i)-1 -:32] ^ subword_t;
         end else begin
             assign out[32*(i)-1 -:32] = in[32*(i)-1 -:32] ^ out[32*(i+1)-1 -:32];
         end
+    end
     end
     endgenerate
 endmodule
@@ -86,7 +87,7 @@ module key_expansion_pipelined (
     assign w[`KEY_BITS-1:0] = key;
     
     genvar i;
-    generate : next_key_gen
+    generate begin : next_key_gen
     //generate round keys
     wire [`KEY_BITS-1:0] next_key0;
     next_key rnd0 (.r(4'b0001),.in(w[`KEY_BITS-1:0]), .out(next_key0));
@@ -111,6 +112,7 @@ module key_expansion_pipelined (
         end
 
         assign w[(i+1)*`KEY_BITS +:`KEY_BITS] = w_pipe[i];
+    end
     end
     endgenerate
 endmodule

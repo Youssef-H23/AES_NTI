@@ -30,6 +30,7 @@ module key_expansion_tb();
                     $display("Error in round %0d, word %0d", i, 3-j);
                     $stop;
                 end 
+                else $display ("Pass: round %0d, word %0d", i, 3-j);
                 #5;
             end
         end
@@ -100,6 +101,7 @@ module key_expansion_pipelined_tb();
                     $display("Error in round %0d, word %0d", i, 3-j);
                     $stop;
                 end 
+                else $display ("Pass: round %0d, word %0d", i, 3-j);
             end
         end
         #5;
